@@ -1,3 +1,15 @@
+var micBoxToastTimer;
+function showToast(message) {
+  var toast = document.getElementById('toast');
+  if (!toast) return;
+  toast.textContent = message;
+  toast.classList.add('is-visible');
+  clearTimeout(micBoxToastTimer);
+  micBoxToastTimer = setTimeout(function () {
+    toast.classList.remove('is-visible');
+  }, 2800);
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   // Mobile nav toggle
   var navToggle = document.getElementById('nav-toggle');

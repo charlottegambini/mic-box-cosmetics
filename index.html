@@ -23,8 +23,10 @@
     </a>
 
     <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+      <a href="#quiz">Quiz</a>
       <a href="#comment-ca-marche">Comment ça marche</a>
       <a href="#animaux">Nos animaux</a>
+      <a href="#produits">Produits</a>
       <a href="#box">Nos box</a>
       <a href="#avis">Avis</a>
       <a href="#faq">FAQ</a>
@@ -80,6 +82,36 @@
       <div class="value-item"><span>🐾</span> Personnalisé par profil</div>
       <div class="value-item"><span>♻️</span> Emballages recyclables</div>
       <div class="value-item"><span>🇫🇷</span> Conçu en France</div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="section" id="quiz">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Sur-mesure en 30 secondes</p>
+        <h2>Quel est le profil de votre animal ?</h2>
+        <p class="section-lead">Répondez à quelques questions rapides : on vous montre tout de suite les produits vegan adaptés.</p>
+      </div>
+
+      <div class="quiz-animal-grid">
+        <button type="button" class="quiz-animal-btn" data-animal="dog">
+          <span class="quiz-animal-emoji">🐶</span>
+          <span>Chien</span>
+        </button>
+        <button type="button" class="quiz-animal-btn" data-animal="cat">
+          <span class="quiz-animal-emoji">🐱</span>
+          <span>Chat</span>
+        </button>
+        <button type="button" class="quiz-animal-btn" data-animal="horse">
+          <span class="quiz-animal-emoji">🐴</span>
+          <span>Cheval</span>
+        </button>
+        <button type="button" class="quiz-animal-btn" data-animal="rabbit">
+          <span class="quiz-animal-emoji">🐇</span>
+          <span>Lapin &amp; NAC</span>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -146,6 +178,27 @@
           <p>Soins doux et sans risque, pensés pour la peau sensible des lapins, cochons d'Inde, furets et rongeurs.</p>
         </article>
       </div>
+    </div>
+  </section>
+
+  <!-- PRODUITS -->
+  <section class="section section-alt" id="produits">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Le catalogue complet</p>
+        <h2>Nos produits vegan par espèce</h2>
+        <p class="section-lead">Les références qui composent vos box, à retrouver ici en libre consultation.</p>
+      </div>
+
+      <div class="products-filter" role="tablist" aria-label="Filtrer les produits par animal">
+        <button type="button" class="filter-btn is-active" data-filter="all">Tous</button>
+        <button type="button" class="filter-btn" data-filter="dog">Chien</button>
+        <button type="button" class="filter-btn" data-filter="cat">Chat</button>
+        <button type="button" class="filter-btn" data-filter="horse">Cheval</button>
+        <button type="button" class="filter-btn" data-filter="rabbit">Lapin &amp; NAC</button>
+      </div>
+
+      <div class="products-grid" id="products-grid"></div>
     </div>
   </section>
 
@@ -316,8 +369,10 @@
     <div class="footer-col">
       <h4>Navigation</h4>
       <ul>
+        <li><a href="#quiz">Quiz</a></li>
         <li><a href="#comment-ca-marche">Comment ça marche</a></li>
         <li><a href="#animaux">Nos animaux</a></li>
+        <li><a href="#produits">Produits</a></li>
         <li><a href="#box">Nos box</a></li>
         <li><a href="#avis">Avis</a></li>
         <li><a href="#faq">FAQ</a></li>
@@ -349,6 +404,19 @@
   </div>
 </footer>
 
+<!-- Quiz Modal -->
+<div class="quiz-modal" id="quiz-modal" aria-hidden="true">
+  <div class="quiz-modal-backdrop" data-quiz-close></div>
+  <div class="quiz-modal-panel" role="dialog" aria-modal="true" aria-labelledby="quiz-modal-title">
+    <button type="button" class="quiz-modal-close" data-quiz-close aria-label="Fermer le quiz">&times;</button>
+    <div id="quiz-modal-body"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script src="js/script.js"></script>
+<script src="js/products.js"></script>
+<script src="js/quiz.js"></script>
 </body>
 </html>

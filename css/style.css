@@ -577,3 +577,234 @@ button { font-family: inherit; cursor: pointer; }
   .footer-inner { grid-template-columns: 1fr; }
   .value-bar-inner { justify-content: center; text-align: center; }
 }
+
+/* ==========================================================================
+   Quiz
+   ========================================================================== */
+.quiz-animal-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.quiz-animal-btn {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 28px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-primary-dark);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.quiz-animal-btn:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+.quiz-animal-emoji { font-size: 2.4rem; }
+
+.quiz-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.quiz-modal.is-open { display: flex; }
+.quiz-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(44, 42, 38, 0.55);
+  backdrop-filter: blur(2px);
+}
+.quiz-modal-panel {
+  position: relative;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 40px 32px;
+  max-width: 560px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-md);
+}
+.quiz-modal-panel h3 { font-size: 1.4rem; }
+.quiz-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-bg-alt);
+  color: var(--color-primary-dark);
+  font-size: 1.3rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.quiz-modal-close:hover { background: var(--color-primary-light); }
+
+.quiz-question { margin: 1.5em 0; }
+.quiz-question-label { font-weight: 700; margin-bottom: 0.6em; }
+.quiz-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.quiz-option {
+  background: var(--color-bg-alt);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  padding: 0.55em 1.1em;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+.quiz-option:hover { border-color: var(--color-primary-light); }
+.quiz-option.is-selected {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.quiz-submit[disabled] { opacity: 0.5; cursor: not-allowed; }
+.quiz-submit { margin-top: 0.5em; }
+.quiz-restart { margin-top: 0.75em; }
+
+.quiz-results {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 1.25em 0;
+}
+.quiz-result-item {
+  display: flex;
+  align-items: center;
+  gap: 0.9em;
+  background: var(--color-bg-alt);
+  border-radius: var(--radius-sm);
+  padding: 12px 16px;
+}
+.quiz-result-emoji { font-size: 1.6rem; }
+.quiz-result-info { display: flex; flex-direction: column; flex: 1; }
+.quiz-result-name { font-weight: 700; color: var(--color-primary-dark); }
+.quiz-result-brand { font-size: 0.82rem; color: var(--color-text-muted); }
+.quiz-result-price { font-weight: 800; color: var(--color-primary-dark); }
+.quiz-total {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  margin-bottom: 1.25em;
+}
+
+body.quiz-modal-open { overflow: hidden; }
+
+/* ==========================================================================
+   Products catalog
+   ========================================================================== */
+.products-filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 40px;
+}
+.filter-btn {
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: 999px;
+  padding: 0.55em 1.3em;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--color-text);
+}
+.filter-btn:hover { border-color: var(--color-primary); }
+.filter-btn.is-active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+.product-card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 24px 20px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+}
+.product-emoji { font-size: 2rem; margin-bottom: 0.4em; }
+.product-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 0.6em; }
+.product-tag {
+  background: var(--color-primary-light);
+  color: var(--color-primary-dark);
+  border-radius: 999px;
+  padding: 0.2em 0.7em;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+.product-card h3 { font-size: 1.02rem; margin-bottom: 0.2em; }
+.product-brand { font-size: 0.82rem; color: var(--color-text-muted); margin-bottom: 0.5em; }
+.product-desc { font-size: 0.88rem; color: var(--color-text-muted); flex: 1; }
+.product-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 0.5em;
+}
+.product-price { font-weight: 800; color: var(--color-primary-dark); font-size: 1.05rem; }
+
+/* ==========================================================================
+   Toast
+   ========================================================================== */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 28px;
+  transform: translate(-50%, 20px);
+  background: var(--color-primary-dark);
+  color: #fff;
+  padding: 0.9em 1.5em;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 300;
+}
+.toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 960px) {
+  .quiz-animal-grid { grid-template-columns: repeat(2, 1fr); }
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .quiz-modal-panel { padding: 32px 20px; }
+}
