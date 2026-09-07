@@ -23,6 +23,7 @@
     </a>
 
     <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+      <a href="#" data-open-account>👤 Mon compte</a>
       <a href="#quiz">Quiz</a>
       <a href="#comment-ca-marche">Comment ça marche</a>
       <a href="#animaux">Nos animaux</a>
@@ -221,7 +222,7 @@
             <li>✔ 3 à 4 produits vegan</li>
             <li>✔ Livraison offerte</li>
           </ul>
-          <a href="#newsletter" class="btn btn-ghost btn-block">Essayer</a>
+          <a href="#newsletter" class="btn btn-ghost btn-block" data-plan="decouverte" data-plan-label="Découverte" data-plan-price="19,90 €/box">Essayer</a>
         </article>
 
         <article class="price-card price-card-featured">
@@ -235,7 +236,7 @@
             <li>✔ Personnalisation évolutive</li>
             <li>✔ Tarif garanti 12 mois</li>
           </ul>
-          <a href="#newsletter" class="btn btn-primary btn-block">Je m'abonne</a>
+          <a href="#newsletter" class="btn btn-primary btn-block" data-plan="mensuel" data-plan-label="Mensuel" data-plan-price="16,90 €/mois">Je m'abonne</a>
         </article>
 
         <article class="price-card">
@@ -247,7 +248,7 @@
             <li>✔ 5 produits vegan</li>
             <li>✔ Cadeau surprise inclus</li>
           </ul>
-          <a href="#newsletter" class="btn btn-ghost btn-block">Essayer</a>
+          <a href="#newsletter" class="btn btn-ghost btn-block" data-plan="trimestriel" data-plan-label="Trimestriel" data-plan-price="14,90 €/mois">Essayer</a>
         </article>
       </div>
     </div>
@@ -369,6 +370,7 @@
     <div class="footer-col">
       <h4>Navigation</h4>
       <ul>
+        <li><a href="#" data-open-account>Mon compte</a></li>
         <li><a href="#quiz">Quiz</a></li>
         <li><a href="#comment-ca-marche">Comment ça marche</a></li>
         <li><a href="#animaux">Nos animaux</a></li>
@@ -404,6 +406,15 @@
   </div>
 </footer>
 
+<!-- Account Modal -->
+<div class="account-modal" id="account-modal" aria-hidden="true">
+  <div class="account-modal-backdrop" data-account-close></div>
+  <div class="account-modal-panel" role="dialog" aria-modal="true" aria-labelledby="account-modal-title">
+    <button type="button" class="account-modal-close" data-account-close aria-label="Fermer mon compte">&times;</button>
+    <div id="account-modal-body"></div>
+  </div>
+</div>
+
 <!-- Quiz Modal -->
 <div class="quiz-modal" id="quiz-modal" aria-hidden="true">
   <div class="quiz-modal-backdrop" data-quiz-close></div>
@@ -418,5 +429,6 @@
 <script src="js/script.js"></script>
 <script src="js/products.js"></script>
 <script src="js/quiz.js"></script>
+<script src="js/account.js"></script>
 </body>
 </html>

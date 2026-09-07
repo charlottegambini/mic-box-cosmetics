@@ -71,8 +71,11 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!button) return;
 
     var product = MIC_PRODUCTS.filter(function (p) { return String(p.id) === button.getAttribute('data-add-product'); })[0];
-    if (product && typeof showToast === 'function') {
-      showToast(product.name + ' ajouté à votre box ✓');
+    if (!product) return;
+
+    var savedToAccount = typeof MicAccount !== 'undefined' && MicAccount.addOrder(product);
+    if (typeof showToast === 'function') {
+      showToast(product.name + (savedToAccount ? ' ajouté à votre box et à vos commandes ✓' : ' ajouté à votre box ✓'));
     }
   });
 });
