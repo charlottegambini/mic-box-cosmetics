@@ -33,7 +33,30 @@ var QUIZZES = {
   }
 };
 
-var ANIMAL_EMOJI = { dog: '🐶', cat: '🐱', horse: '🐴', rabbit: '🐇' };
+var ANIMAL_AVATARS = {
+  dog: [
+    { emoji: '🐕', label: 'Corniaud' },
+    { emoji: '🐩', label: 'Caniche' },
+    { emoji: '🦮', label: 'Labrador' },
+    { emoji: '🐶', label: 'Chiot' }
+  ],
+  cat: [
+    { emoji: '🐈', label: 'Européen' },
+    { emoji: '😺', label: 'Siamois' },
+    { emoji: '😸', label: 'Persan' },
+    { emoji: '🐱', label: 'Chaton' }
+  ],
+  horse: [
+    { emoji: '🐴', label: 'Cheval' },
+    { emoji: '🐎', label: 'Poney' }
+  ],
+  rabbit: [
+    { emoji: '🐇', label: 'Lapin' },
+    { emoji: '🐰', label: 'Lapin nain' },
+    { emoji: '🐹', label: 'Hamster' },
+    { emoji: '🐭', label: 'Rongeur' }
+  ]
+};
 var PROFILE_COLORS = ['#4C7A5A', '#C97E77', '#D9A441', '#5C8FA6', '#9B7FBF'];
 
 (function () {
@@ -42,7 +65,7 @@ var PROFILE_COLORS = ['#4C7A5A', '#C97E77', '#D9A441', '#5C8FA6', '#9B7FBF'];
   if (!modal || !modalBody) return;
 
   var selectedAnswers = {};
-  var profile = { name: '', color: PROFILE_COLORS[0] };
+  var profile = { name: '', color: PROFILE_COLORS[0], avatar: '' };
 
   function openModal() {
     modal.classList.add('is-open');
@@ -56,23 +79,35 @@ var PROFILE_COLORS = ['#4C7A5A', '#C97E77', '#D9A441', '#5C8FA6', '#9B7FBF'];
     document.body.classList.remove('quiz-modal-open');
   }
 
-  function avatarCircle(animal, size) {
-    return '<span class="quiz-avatar-circle' + (size ? ' quiz-avatar-circle-' + size : '') + '" style="background:' + profile.color + '">' + ANIMAL_EMOJI[animal] + '</span>';
+  function avatarCircle(size) {
+    return '<span class="quiz-avatar-circle' + (size ? ' quiz-avatar-circle-' + size : '') + '" style="background:' + profile.color + '">' + profile.avatar + '</span>';
   }
 
-  function profileChip(animal) {
+  function profileChip() {
     var name = profile.name.trim() || 'Votre compagnon';
-    return '<div class="quiz-profile-chip">' + avatarCircle(animal, 'sm') + '<span class="quiz-profile-chip-name">' + name + '</span></div>';
+    return '<div class="quiz-profile-chip">' + avatarCircle('sm') + '<span class="quiz-profile-chip-name">' + name + '</span></div>';
   }
 
   function renderProfile(animal) {
     selectedAnswers = {};
-    profile = { name: '', color: PROFILE_COLORS[0] };
+    var avatars = ANIMAL_AVATARS[animal];
+    profile = { name: '', color: PROFILE_COLORS[0], avatar: avatars[0].emoji };
 
     var html = '<p class="eyebrow">Le profil de votre compagnon</p><h3 id="quiz-modal-title">Faisons connaissance</h3>';
-    html += '<div class="quiz-avatar-preview" id="quiz-avatar-preview">' + avatarCircle(animal) + '<span class="quiz-avatar-preview-name">Votre compagnon</span></div>';
+    html += '<div class="quiz-avatar-preview" id="quiz-avatar-preview">' + avatarCircle() + '<span class="quiz-avatar-preview-name">Votre compagnon</span></div>';
     html += '<label class="quiz-field-label" for="quiz-pet-name">Son prénom</label>';
     html += '<input type="text" id="quiz-pet-name" class="quiz-input" placeholder="Ex. Rio, Nova, Étoile…" maxlength="24" autocomplete="off">';
+    html += '<p class="quiz-field-label">Son allure</p>';
+    html += '<div class="quiz-avatar-grid">';
+    avatars.forEach(function (a, i) {
+      html += (
+        '<button type="button" class="quiz-avatar-swatch' + (i === 0 ? ' is-selected' : '') + '" data-avatar="' + a.emoji + '">' +
+          '<span class="quiz-avatar-swatch-emoji">' + a.emoji + '</span>' +
+          '<span class="quiz-avatar-swatch-label">' + a.label + '</span>' +
+        '</button>'
+      );
+    });
+    html += '</div>';
     html += '<p class="quiz-field-label">Sa couleur</p>';
     html += '<div class="quiz-color-grid">';
     PROFILE_COLORS.forEach(function (color, i) {
@@ -87,7 +122,7 @@ var PROFILE_COLORS = ['#4C7A5A', '#C97E77', '#D9A441', '#5C8FA6', '#9B7FBF'];
 
   function renderQuestions(animal) {
     var quiz = QUIZZES[animal];
-    var html = profileChip(animal);
+    var html = profileChip();
     html += '<p class="eyebrow">Quiz personnalisation</p><h3 id="quiz-modal-title">' + quiz.title + '</h3>';
 
     quiz.questions.forEach(function (q, index) {
@@ -113,7 +148,7 @@ var PROFILE_COLORS = ['#4C7A5A', '#C97E77', '#D9A441', '#5C8FA6', '#9B7FBF'];
     var total = items.reduce(function (sum, p) { return sum + p.price; }, 0);
     var name = profile.name.trim() || 'votre compagnon';
 
-    var html = profileChip(animal);
+    var html = profileChip();
     html += '<p class="eyebrow">Votre sélection</p><h3 id="quiz-modal-title">La box de ' + name + ', pensée sur mesure</h3>';
     html += '<div class="quiz-results">';
     items.forEach(function (p) {
@@ -143,6 +178,16 @@ var PROFILE_COLORS = ['#4C7A5A', '#C97E77', '#D9A441', '#5C8FA6', '#9B7FBF'];
   modal.addEventListener('click', function (e) {
     if (e.target.closest('[data-quiz-close]')) {
       closeModal();
+      return;
+    }
+
+    var avatarSwatch = e.target.closest('.quiz-avatar-swatch');
+    if (avatarSwatch) {
+      modalBody.querySelectorAll('.quiz-avatar-swatch').forEach(function (s) { s.classList.remove('is-selected'); });
+      avatarSwatch.classList.add('is-selected');
+      profile.avatar = avatarSwatch.getAttribute('data-avatar');
+      var avatarPreview = modalBody.querySelector('#quiz-avatar-preview .quiz-avatar-circle');
+      if (avatarPreview) avatarPreview.textContent = profile.avatar;
       return;
     }
 
