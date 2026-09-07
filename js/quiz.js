@@ -33,12 +33,16 @@ var QUIZZES = {
   }
 };
 
+var ANIMAL_EMOJI = { dog: '🐶', cat: '🐱', horse: '🐴', rabbit: '🐇' };
+var PROFILE_COLORS = ['#4C7A5A', '#C97E77', '#D9A441', '#5C8FA6', '#9B7FBF'];
+
 (function () {
   var modal = document.getElementById('quiz-modal');
   var modalBody = document.getElementById('quiz-modal-body');
   if (!modal || !modalBody) return;
 
   var selectedAnswers = {};
+  var profile = { name: '', color: PROFILE_COLORS[0] };
 
   function openModal() {
     modal.classList.add('is-open');
@@ -52,10 +56,39 @@ var QUIZZES = {
     document.body.classList.remove('quiz-modal-open');
   }
 
-  function renderQuestions(animal) {
+  function avatarCircle(animal, size) {
+    return '<span class="quiz-avatar-circle' + (size ? ' quiz-avatar-circle-' + size : '') + '" style="background:' + profile.color + '">' + ANIMAL_EMOJI[animal] + '</span>';
+  }
+
+  function profileChip(animal) {
+    var name = profile.name.trim() || 'Votre compagnon';
+    return '<div class="quiz-profile-chip">' + avatarCircle(animal, 'sm') + '<span class="quiz-profile-chip-name">' + name + '</span></div>';
+  }
+
+  function renderProfile(animal) {
     selectedAnswers = {};
+    profile = { name: '', color: PROFILE_COLORS[0] };
+
+    var html = '<p class="eyebrow">Le profil de votre compagnon</p><h3 id="quiz-modal-title">Faisons connaissance</h3>';
+    html += '<div class="quiz-avatar-preview" id="quiz-avatar-preview">' + avatarCircle(animal) + '<span class="quiz-avatar-preview-name">Votre compagnon</span></div>';
+    html += '<label class="quiz-field-label" for="quiz-pet-name">Son prénom</label>';
+    html += '<input type="text" id="quiz-pet-name" class="quiz-input" placeholder="Ex. Rio, Nova, Étoile…" maxlength="24" autocomplete="off">';
+    html += '<p class="quiz-field-label">Sa couleur</p>';
+    html += '<div class="quiz-color-grid">';
+    PROFILE_COLORS.forEach(function (color, i) {
+      html += '<button type="button" class="quiz-color-swatch' + (i === 0 ? ' is-selected' : '') + '" data-color="' + color + '" style="background:' + color + '" aria-label="Couleur ' + (i + 1) + '"></button>';
+    });
+    html += '</div>';
+    html += '<button type="button" class="btn btn-primary btn-block quiz-profile-continue" data-animal="' + animal + '" disabled>Continuer</button>';
+    modalBody.innerHTML = html;
+
+    modalBody.querySelector('#quiz-pet-name').focus();
+  }
+
+  function renderQuestions(animal) {
     var quiz = QUIZZES[animal];
-    var html = '<p class="eyebrow">Quiz personnalisation</p><h3 id="quiz-modal-title">' + quiz.title + '</h3>';
+    var html = profileChip(animal);
+    html += '<p class="eyebrow">Quiz personnalisation</p><h3 id="quiz-modal-title">' + quiz.title + '</h3>';
 
     quiz.questions.forEach(function (q, index) {
       html += '<div class="quiz-question"><p class="quiz-question-label">' + q.question + '</p><div class="quiz-options">';
@@ -78,8 +111,10 @@ var QUIZZES = {
   function renderResults(animal) {
     var items = MIC_PRODUCTS.filter(function (p) { return p.category === animal; }).slice(0, 4);
     var total = items.reduce(function (sum, p) { return sum + p.price; }, 0);
+    var name = profile.name.trim() || 'votre compagnon';
 
-    var html = '<p class="eyebrow">Votre sélection</p><h3 id="quiz-modal-title">La box ' + ANIMAL_LABELS[animal] + ', pensée pour lui</h3>';
+    var html = profileChip(animal);
+    html += '<p class="eyebrow">Votre sélection</p><h3 id="quiz-modal-title">La box de ' + name + ', pensée sur mesure</h3>';
     html += '<div class="quiz-results">';
     items.forEach(function (p) {
       html += (
@@ -92,7 +127,7 @@ var QUIZZES = {
       );
     });
     html += '</div>';
-    html += '<p class="quiz-total">Valeur du panier estimée : <strong>' + total + ' €</strong> — retrouvée chaque mois dans votre box, dès 16,90 €.</p>';
+    html += '<p class="quiz-total">Valeur du panier estimée : <strong>' + total + ' €</strong> — retrouvée chaque mois dans la box de ' + name + ', dès 16,90 €.</p>';
     html += '<a href="#box" class="btn btn-primary btn-block" data-quiz-close>Je m\'abonne</a>';
     html += '<button type="button" class="btn btn-ghost btn-block quiz-restart" data-animal="' + animal + '">Refaire le quiz</button>';
     modalBody.innerHTML = html;
@@ -100,7 +135,7 @@ var QUIZZES = {
 
   document.querySelectorAll('.quiz-animal-btn').forEach(function (btn) {
     btn.addEventListener('click', function () {
-      renderQuestions(btn.getAttribute('data-animal'));
+      renderProfile(btn.getAttribute('data-animal'));
       openModal();
     });
   });
@@ -108,6 +143,22 @@ var QUIZZES = {
   modal.addEventListener('click', function (e) {
     if (e.target.closest('[data-quiz-close]')) {
       closeModal();
+      return;
+    }
+
+    var swatch = e.target.closest('.quiz-color-swatch');
+    if (swatch) {
+      modalBody.querySelectorAll('.quiz-color-swatch').forEach(function (s) { s.classList.remove('is-selected'); });
+      swatch.classList.add('is-selected');
+      profile.color = swatch.getAttribute('data-color');
+      var preview = modalBody.querySelector('#quiz-avatar-preview .quiz-avatar-circle');
+      if (preview) preview.style.background = profile.color;
+      return;
+    }
+
+    var continueBtn = e.target.closest('.quiz-profile-continue');
+    if (continueBtn && !continueBtn.disabled) {
+      renderQuestions(continueBtn.getAttribute('data-animal'));
       return;
     }
 
@@ -132,8 +183,21 @@ var QUIZZES = {
 
     var restart = e.target.closest('.quiz-restart');
     if (restart) {
-      renderQuestions(restart.getAttribute('data-animal'));
+      renderProfile(restart.getAttribute('data-animal'));
     }
+  });
+
+  modal.addEventListener('input', function (e) {
+    if (!e.target.matches('#quiz-pet-name')) return;
+
+    var value = e.target.value;
+    profile.name = value;
+
+    var previewName = modalBody.querySelector('.quiz-avatar-preview-name');
+    if (previewName) previewName.textContent = value.trim() || 'Votre compagnon';
+
+    var continueBtn = modalBody.querySelector('.quiz-profile-continue');
+    if (continueBtn) continueBtn.disabled = value.trim().length === 0;
   });
 
   document.addEventListener('keydown', function (e) {
