@@ -91,7 +91,7 @@ var MicPricing = (function () {
         '<div class="loyalty-stamps">' + stamps + '</div>' +
         '<div class="loyalty-preview-text">' +
           '<p class="loyalty-preview-title">Carte fidélité MIC BOX</p>' +
-          '<p class="loyalty-preview-desc">Chaque saison reçue ajoute un tampon. À 4 tampons, choisissez votre récompense : une saison offerte, ou un goodie exclusif de la saison — sans jamais rien devoir.</p>' +
+          '<p class="loyalty-preview-desc">Chaque saison reçue ajoute un tampon. À 4 tampons, débloquez un goodie exclusif de la saison, en plus du contenu habituel de la box — sans jamais rien devoir.</p>' +
         '</div>' +
       '</div>'
     );

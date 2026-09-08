@@ -233,16 +233,15 @@ var MicAccount = (function () {
       html += '<p class="account-loyalty-progress">' + loyalty.stamps + ' / 4 saisons reçues</p>';
 
       if (loyalty.stamps >= 4) {
-        html += '<p class="account-loyalty-unlocked">🎉 Récompense fidélité débloquée ! Choisissez :</p>';
-        html += '<button type="button" class="btn btn-primary btn-block loyalty-claim" data-reward="saison">🎁 Une saison offerte</button>';
-        html += '<button type="button" class="btn btn-ghost btn-block loyalty-claim" data-reward="goodie">🎁 Un goodie exclusif de la saison</button>';
+        html += '<p class="account-loyalty-unlocked">🎉 Récompense fidélité débloquée !</p>';
+        html += '<button type="button" class="btn btn-primary btn-block loyalty-claim">🎁 Recevoir mon goodie exclusif de la saison</button>';
       } else {
         html += '<p class="account-empty">Encore ' + (4 - loyalty.stamps) + ' saison' + (4 - loyalty.stamps > 1 ? 's' : '') + ' avant votre récompense fidélité.</p>';
         html += '<button type="button" class="btn btn-ghost btn-block loyalty-add-stamp">Simuler la réception d\'une saison (démo)</button>';
       }
 
       if (loyalty.lastReward) {
-        html += '<p class="account-disclaimer">Dernière récompense obtenue : ' + (loyalty.lastReward.type === 'saison' ? 'une saison offerte' : 'un goodie exclusif') + ', le ' + loyalty.lastReward.date + '.</p>';
+        html += '<p class="account-disclaimer">Dernière récompense obtenue : un goodie exclusif, le ' + loyalty.lastReward.date + '.</p>';
       }
 
       html += '<p class="account-disclaimer">Vos tampons restent acquis même si vous mettez votre abonnement en pause ou changez de rythme de paiement.</p>';
@@ -344,12 +343,11 @@ var MicAccount = (function () {
     var claimBtn = e.target.closest('.loyalty-claim');
     if (claimBtn) {
       var accClaim = MicAccount.get();
-      var rewardType = claimBtn.getAttribute('data-reward');
       accClaim.loyalty = accClaim.loyalty || { stamps: 0, lastReward: null };
-      accClaim.loyalty.lastReward = { type: rewardType, date: new Date().toLocaleDateString('fr-FR') };
+      accClaim.loyalty.lastReward = { date: new Date().toLocaleDateString('fr-FR') };
       accClaim.loyalty.stamps = 0;
       MicAccount.update(accClaim);
-      if (typeof showToast === 'function') showToast(rewardType === 'saison' ? 'Saison offerte débloquée ✓' : 'Goodie exclusif débloqué ✓');
+      if (typeof showToast === 'function') showToast('Goodie exclusif débloqué ✓');
       render();
       return;
     }
