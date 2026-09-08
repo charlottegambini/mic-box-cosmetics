@@ -162,8 +162,17 @@ var PROFILE_COLORS = ['#4C7A5A', '#C97E77', '#D9A441', '#5C8FA6', '#9B7FBF'];
       );
     });
     html += '</div>';
-    html += '<p class="quiz-total">Valeur du panier estimée : <strong>' + total + ' €</strong> — retrouvée chaque mois dans la box de ' + name + ', dès 16,90 €.</p>';
-    html += '<a href="#box" class="btn btn-primary btn-block" data-quiz-close>Je m\'abonne</a>';
+
+    var priceInfo = typeof MicPricing !== 'undefined' ? MicPricing.get(animal) : null;
+    if (priceInfo) {
+      html += (
+        '<p class="quiz-total">Valeur du panier estimée : <strong>' + total + ' €</strong> — retrouvée dans la box de ' + name +
+        ', dès ' + MicPricing.format(priceInfo.decouverte) + ' en Découverte ou ' + MicPricing.format(priceInfo.trimestriel) +
+        ' pour l\'abonnement trimestriel (livré 4 fois par an). Toujours sans engagement.</p>'
+      );
+    }
+
+    html += '<a href="#box" class="btn btn-primary btn-block quiz-subscribe" data-animal="' + animal + '" data-quiz-close>Je m\'abonne</a>';
     html += '<button type="button" class="btn btn-ghost btn-block quiz-restart" data-animal="' + animal + '">Refaire le quiz</button>';
     modalBody.innerHTML = html;
   }
@@ -176,6 +185,11 @@ var PROFILE_COLORS = ['#4C7A5A', '#C97E77', '#D9A441', '#5C8FA6', '#9B7FBF'];
   });
 
   modal.addEventListener('click', function (e) {
+    var subscribeLink = e.target.closest('.quiz-subscribe');
+    if (subscribeLink && typeof MicPricing !== 'undefined') {
+      MicPricing.setSpecies(subscribeLink.getAttribute('data-animal'));
+    }
+
     if (e.target.closest('[data-quiz-close]')) {
       closeModal();
       return;

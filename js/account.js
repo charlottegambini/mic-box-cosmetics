@@ -335,14 +335,22 @@ var MicAccount = (function () {
     if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
   });
 
-  document.addEventListener('DOMContentLoaded', function () {
-    document.querySelectorAll('[data-plan]').forEach(function (link) {
-      link.addEventListener('click', function () {
-        var account = MicAccount.get();
-        if (!account) return;
-        MicAccount.setSubscription(link.getAttribute('data-plan'), link.getAttribute('data-plan-label'), link.getAttribute('data-plan-price'));
-        if (typeof showToast === 'function') showToast('Formule ' + link.getAttribute('data-plan-label') + ' enregistrée dans votre compte ✓');
-      });
-    });
+  document.addEventListener('click', function (e) {
+    var link = e.target.closest('[data-plan]');
+    if (!link) return;
+
+    var account = MicAccount.get();
+    if (!account) return;
+
+    var species = link.getAttribute('data-species');
+    var planId = link.getAttribute('data-plan');
+    var planLabel = link.getAttribute('data-plan-label');
+    var priceInfo = typeof MicPricing !== 'undefined' ? MicPricing.get(species) : null;
+    var amount = priceInfo ? priceInfo[planId] : null;
+    var unit = planId === 'trimestriel' ? '/trimestre' : '/box';
+    var priceLabel = amount != null ? MicPricing.format(amount) + unit : '';
+
+    MicAccount.setSubscription(planId, planLabel + (priceInfo ? ' — ' + priceInfo.label : ''), priceLabel);
+    if (typeof showToast === 'function') showToast('Formule ' + planLabel + ' enregistrée dans votre compte ✓');
   });
 })();
