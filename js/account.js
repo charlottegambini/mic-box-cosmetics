@@ -63,7 +63,7 @@ var MicAccount = (function () {
   var draft = null;
 
   function blankDraft() {
-    return { firstName: '', lastName: '', address: '', species: '', avatar: '', petName: '', color: PROFILE_COLORS[0] };
+    return { firstName: '', lastName: '', address: '', species: '', avatar: '', petName: '', color: PROFILE_COLORS[0], loyalty: { stamps: 0, lastReward: null } };
   }
 
   function openModal() {
@@ -174,7 +174,7 @@ var MicAccount = (function () {
     );
 
     html += '<div class="account-tabs">';
-    [['profil', 'Profil'], ['commandes', 'Mes commandes'], ['abonnement', 'Mon abonnement']].forEach(function (t) {
+    [['profil', 'Profil'], ['commandes', 'Mes commandes'], ['abonnement', 'Mon abonnement'], ['fidelite', 'Fidélité']].forEach(function (t) {
       html += '<button type="button" class="filter-btn account-tab' + (activeTab === t[0] ? ' is-active' : '') + '" data-tab="' + t[0] + '">' + t[1] + '</button>';
     });
     html += '</div>';
@@ -223,6 +223,29 @@ var MicAccount = (function () {
         html += '<p class="account-empty">Aucun abonnement actif.</p>';
         html += '<a href="#box" class="btn btn-primary btn-block" data-account-close>Voir les formules</a>';
       }
+    } else if (activeTab === 'fidelite') {
+      var loyalty = account.loyalty || { stamps: 0, lastReward: null };
+      var stampsHtml = '';
+      for (var i = 0; i < 4; i++) {
+        stampsHtml += '<span class="loyalty-stamp' + (i < loyalty.stamps ? ' is-filled' : '') + '"><span class="loyalty-stamp-icon">🐾</span></span>';
+      }
+      html += '<div class="loyalty-stamps loyalty-stamps-account">' + stampsHtml + '</div>';
+      html += '<p class="account-loyalty-progress">' + loyalty.stamps + ' / 4 saisons reçues</p>';
+
+      if (loyalty.stamps >= 4) {
+        html += '<p class="account-loyalty-unlocked">🎉 Récompense fidélité débloquée ! Choisissez :</p>';
+        html += '<button type="button" class="btn btn-primary btn-block loyalty-claim" data-reward="saison">🎁 Une saison offerte</button>';
+        html += '<button type="button" class="btn btn-ghost btn-block loyalty-claim" data-reward="goodie">🎁 Un goodie exclusif de la saison</button>';
+      } else {
+        html += '<p class="account-empty">Encore ' + (4 - loyalty.stamps) + ' saison' + (4 - loyalty.stamps > 1 ? 's' : '') + ' avant votre récompense fidélité.</p>';
+        html += '<button type="button" class="btn btn-ghost btn-block loyalty-add-stamp">Simuler la réception d\'une saison (démo)</button>';
+      }
+
+      if (loyalty.lastReward) {
+        html += '<p class="account-disclaimer">Dernière récompense obtenue : ' + (loyalty.lastReward.type === 'saison' ? 'une saison offerte' : 'un goodie exclusif') + ', le ' + loyalty.lastReward.date + '.</p>';
+      }
+
+      html += '<p class="account-disclaimer">Vos tampons restent acquis même si vous mettez votre abonnement en pause ou changez de rythme de paiement.</p>';
     }
     html += '</div>';
 
@@ -307,6 +330,30 @@ var MicAccount = (function () {
       return;
     }
 
+    var addStampBtn = e.target.closest('.loyalty-add-stamp');
+    if (addStampBtn) {
+      var accStamp = MicAccount.get();
+      accStamp.loyalty = accStamp.loyalty || { stamps: 0, lastReward: null };
+      accStamp.loyalty.stamps = Math.min(4, accStamp.loyalty.stamps + 1);
+      MicAccount.update(accStamp);
+      if (typeof showToast === 'function') showToast('Saison ajoutée à votre carte fidélité ✓');
+      render();
+      return;
+    }
+
+    var claimBtn = e.target.closest('.loyalty-claim');
+    if (claimBtn) {
+      var accClaim = MicAccount.get();
+      var rewardType = claimBtn.getAttribute('data-reward');
+      accClaim.loyalty = accClaim.loyalty || { stamps: 0, lastReward: null };
+      accClaim.loyalty.lastReward = { type: rewardType, date: new Date().toLocaleDateString('fr-FR') };
+      accClaim.loyalty.stamps = 0;
+      MicAccount.update(accClaim);
+      if (typeof showToast === 'function') showToast(rewardType === 'saison' ? 'Saison offerte débloquée ✓' : 'Goodie exclusif débloqué ✓');
+      render();
+      return;
+    }
+
     var tabBtn = e.target.closest('.account-tab');
     if (tabBtn) {
       activeTab = tabBtn.getAttribute('data-tab');
@@ -345,9 +392,21 @@ var MicAccount = (function () {
     var species = link.getAttribute('data-species');
     var planId = link.getAttribute('data-plan');
     var planLabel = link.getAttribute('data-plan-label');
+    var frequency = link.getAttribute('data-frequency');
     var priceInfo = typeof MicPricing !== 'undefined' ? MicPricing.get(species) : null;
-    var amount = priceInfo ? priceInfo[planId] : null;
-    var unit = planId === 'trimestriel' ? '/trimestre' : '/box';
+
+    var amount, unit;
+    if (planId === 'trimestriel' && frequency === 'prepaid2') {
+      amount = priceInfo ? priceInfo.prepaid2 : null;
+      unit = ' (2 saisons prépayées, flexible et remboursable)';
+      planLabel = planLabel + ' — prépaiement 2 saisons';
+    } else if (planId === 'trimestriel') {
+      amount = priceInfo ? priceInfo.trimestriel : null;
+      unit = '/trimestre';
+    } else {
+      amount = priceInfo ? priceInfo.decouverte : null;
+      unit = '/box';
+    }
     var priceLabel = amount != null ? MicPricing.format(amount) + unit : '';
 
     MicAccount.setSubscription(planId, planLabel + (priceInfo ? ' — ' + priceInfo.label : ''), priceLabel);
