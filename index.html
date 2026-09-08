@@ -1,180 +1,406 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MIC BOX - Box Cosmétiques Vegan pour Animaux</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MIC BOX — Cosmétiques vegan personnalisés pour vos animaux</title>
+<meta name="description" content="MIC BOX, la box de cosmétiques vegan et cruelty-free personnalisée pour chiens, chats, chevaux et poneys — sans engagement.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐾</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="logo">🐾 MIC BOX</div>
-            <ul class="nav-links">
-                <li><a href="#home">Accueil</a></li>
-                <li><a href="#quiz">Quiz</a></li>
-                <li><a href="#products">Produits</a></li>
-                <li><a href="#about">À Propos</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
+
+<a class="skip-link" href="#main">Aller au contenu</a>
+
+<header class="site-header" id="header">
+  <div class="container header-inner">
+    <a href="#" class="logo">
+      <span class="logo-mark" aria-hidden="true">🐾</span>
+      <span class="logo-text">MIC BOX</span>
+    </a>
+
+    <nav class="main-nav" id="main-nav" aria-label="Navigation principale">
+      <a href="#" data-open-account>👤 Mon compte</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#comment-ca-marche">Comment ça marche</a>
+      <a href="#animaux">Nos animaux</a>
+      <a href="#produits">Produits</a>
+      <a href="#box">Nos box</a>
+      <a href="#avis">Avis</a>
+      <a href="#faq">FAQ</a>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Bienvenue chez MIC BOX 🐾</h1>
-            <p>La box de cosmétiques vegan et écologiques<br>personnalisée pour votre animal de compagnie</p>
-            <a href="#quiz" class="cta-button">Commencer le Quiz</a>
-        </div>
-        <div class="hero-animals">
-            <span class="animal-icon">🐕</span>
-            <span class="animal-icon">🐈</span>
-            <span class="animal-icon">🐴</span>
-            <span class="animal-icon">🐰</span>
-        </div>
-    </section>
+    <div class="header-actions">
+      <a href="#box" class="btn btn-primary btn-sm">Je m'abonne</a>
+      <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Ouvrir le menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
 
-    <!-- Valeurs -->
-    <section class="values">
-        <div class="container">
-            <h2>Pourquoi MIC BOX ?</h2>
-            <div class="values-grid">
-                <div class="value-card">
-                    <div class="icon">🌱</div>
-                    <h3>100% Vegan</h3>
-                    <p>Tous nos produits sont vegan et cruelty-free</p>
-                </div>
-                <div class="value-card">
-                    <div class="icon">♻️</div>
-                    <h3>Écologique</h3>
-                    <p>Emballages durables et respectueux de l'environnement</p>
-                </div>
-                <div class="value-card">
-                    <div class="icon">✓</div>
-                    <h3>Validé Vétérinaire</h3>
-                    <p>Tous les produits sont approuvés par nos experts</p>
-                </div>
-                <div class="value-card">
-                    <div class="icon">📦</div>
-                    <h3>Personnalisé</h3>
-                    <p>Une box adaptée aux besoins spécifiques de votre animal</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<main id="main">
 
-    <!-- Quiz Section -->
-    <section id="quiz" class="quiz-section">
-        <div class="container">
-            <h2>Quelle est votre animal ? 🐾</h2>
-            <p class="subtitle">Sélectionnez l'espèce de votre compagnon pour commencer</p>
-            
-            <div class="animal-selection">
-                <div class="animal-choice" onclick="startQuiz('dog')">
-                    <div class="animal-image">🐕</div>
-                    <h3>Chien</h3>
-                </div>
-                <div class="animal-choice" onclick="startQuiz('cat')">
-                    <div class="animal-image">🐈</div>
-                    <h3>Chat</h3>
-                </div>
-                <div class="animal-choice" onclick="startQuiz('horse')">
-                    <div class="animal-image">🐴</div>
-                    <h3>Cheval</h3>
-                </div>
-                <div class="animal-choice" onclick="startQuiz('rabbit')">
-                    <div class="animal-image">🐰</div>
-                    <h3>Lapin/NAC</h3>
-                </div>
-            </div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">100% vegan · cruelty-free · fabriqué en France</p>
+        <h1>Des soins vegan sur-mesure, sans engagement, pour votre compagnon</h1>
+        <p class="hero-lead">
+          MIC BOX compose une box de cosmétiques naturels et vegan adaptée à l'espèce,
+          au pelage et aux besoins de votre chien, chat, cheval ou NAC. Zéro cruauté,
+          zéro ingrédient superflu, 100% chouchoutage.
+        </p>
+        <div class="hero-actions">
+          <a href="#box" class="btn btn-primary">Découvrir les box</a>
+          <a href="#comment-ca-marche" class="btn btn-ghost">Comment ça marche</a>
         </div>
-    </section>
+        <ul class="hero-trust">
+          <li>🌱 Ingrédients naturels</li>
+          <li>🚫 Sans tests sur animaux</li>
+          <li>🔓 Sans engagement</li>
+        </ul>
+      </div>
 
-    <!-- Quiz Modal -->
-    <div id="quizModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeQuiz()">&times;</span>
-            <div id="quizContent"></div>
-        </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="hero-blob"></div>
+        <div class="hero-card hero-card-1">🐶</div>
+        <div class="hero-card hero-card-2">🐱</div>
+        <div class="hero-card hero-card-3">🐴</div>
+        <div class="hero-card hero-card-4">🐇</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGOS / VALEURS BAR -->
+  <section class="value-bar">
+    <div class="container value-bar-inner">
+      <div class="value-item"><span>🌿</span> Vegan &amp; naturel</div>
+      <div class="value-item"><span>🐾</span> Personnalisé par profil</div>
+      <div class="value-item"><span>♻️</span> Emballages recyclables</div>
+      <div class="value-item"><span>🇫🇷</span> Conçu en France</div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="section" id="quiz">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Sur-mesure en 30 secondes</p>
+        <h2>Quel est le profil de votre animal ?</h2>
+        <p class="section-lead">Répondez à quelques questions rapides : on vous montre tout de suite les produits vegan adaptés.</p>
+      </div>
+
+      <div class="quiz-animal-grid">
+        <button type="button" class="quiz-animal-btn" data-animal="dog">
+          <span class="quiz-animal-emoji">🐶</span>
+          <span>Chien</span>
+        </button>
+        <button type="button" class="quiz-animal-btn" data-animal="cat">
+          <span class="quiz-animal-emoji">🐱</span>
+          <span>Chat</span>
+        </button>
+        <button type="button" class="quiz-animal-btn" data-animal="horse">
+          <span class="quiz-animal-emoji">🐴</span>
+          <span>Cheval</span>
+        </button>
+        <button type="button" class="quiz-animal-btn" data-animal="rabbit">
+          <span class="quiz-animal-emoji">🐇</span>
+          <span>Lapin &amp; NAC</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMMENT CA MARCHE -->
+  <section class="section" id="comment-ca-marche">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Simple &amp; sur-mesure</p>
+        <h2>Comment ça marche</h2>
+        <p class="section-lead">Trois étapes pour offrir à votre animal une routine beauté saine, adaptée à ses besoins réels.</p>
+      </div>
+
+      <div class="steps">
+        <article class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-icon">📝</div>
+          <h3>Créez le profil de votre animal</h3>
+          <p>Espèce, race, âge, type de poil ou de peau, sensibilités éventuelles : quelques questions suffisent pour cerner ses besoins.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-icon">🧴</div>
+          <h3>On compose sa box vegan</h3>
+          <p>Notre équipe sélectionne shampoings, baumes, brosses et accessoires 100% vegan et cruelty-free adaptés à son profil.</p>
+        </article>
+        <article class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-icon">📬</div>
+          <h3>Recevez &amp; profitez</h3>
+          <p>Votre box arrive directement chez vous, à l'unité ou chaque trimestre selon la formule choisie, prête à l'emploi.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANIMAUX -->
+  <section class="section section-alt" id="animaux">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Pour tous vos compagnons</p>
+        <h2>Une box pensée pour chaque espèce</h2>
+        <p class="section-lead">Chaque animal a des besoins spécifiques : nos formules varient selon l'espèce, jamais une routine universelle.</p>
+      </div>
+
+      <div class="animals-grid">
+        <article class="animal-card">
+          <div class="animal-emoji">🐶</div>
+          <h3>Chiens</h3>
+          <p>Shampoings selon type de pelage, soins des coussinets, brosses adaptées et lingettes apaisantes.</p>
+        </article>
+        <article class="animal-card">
+          <div class="animal-emoji">🐱</div>
+          <h3>Chats</h3>
+          <p>Formules douces et sans parfum agressif, soins des griffes et accessoires de toilettage.</p>
+        </article>
+        <article class="animal-card">
+          <div class="animal-emoji">🐴</div>
+          <h3>Chevaux</h3>
+          <p>Shampoings crinière et robe, soins des sabots et baumes protecteurs pour toutes les saisons.</p>
+        </article>
+        <article class="animal-card">
+          <div class="animal-emoji">🐇</div>
+          <h3>Lapins &amp; NAC</h3>
+          <p>Soins doux et sans risque, pensés pour la peau sensible des lapins, cochons d'Inde, furets et rongeurs.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUITS -->
+  <section class="section section-alt" id="produits">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Le catalogue complet</p>
+        <h2>Nos produits vegan par espèce</h2>
+        <p class="section-lead">Les références qui composent vos box, à retrouver ici en libre consultation.</p>
+      </div>
+
+      <div class="products-filter" role="tablist" aria-label="Filtrer les produits par animal">
+        <button type="button" class="filter-btn is-active" data-filter="all">Tous</button>
+        <button type="button" class="filter-btn" data-filter="dog">Chien</button>
+        <button type="button" class="filter-btn" data-filter="cat">Chat</button>
+        <button type="button" class="filter-btn" data-filter="horse">Cheval</button>
+        <button type="button" class="filter-btn" data-filter="rabbit">Lapin &amp; NAC</button>
+      </div>
+
+      <div class="products-grid" id="products-grid"></div>
+    </div>
+  </section>
+
+  <!-- BOX / PRICING -->
+  <section class="section" id="box">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Nos formules · toujours sans engagement</p>
+        <h2>Choisissez la formule adaptée à votre compagnon</h2>
+        <p class="section-lead">Résiliable à tout moment. Le tarif dépend de l'espèce de votre animal — sélectionnez-la pour voir le prix exact.</p>
+      </div>
+
+      <div class="species-tabs" role="tablist" aria-label="Choisir l'espèce de votre animal">
+        <button type="button" class="filter-btn species-tab is-active" data-species="dog">🐶 Chien</button>
+        <button type="button" class="filter-btn species-tab" data-species="cat">🐱 Chat</button>
+        <button type="button" class="filter-btn species-tab" data-species="horse">🐴 Cheval &amp; Poney</button>
+        <button type="button" class="filter-btn species-tab" data-species="rabbit">🐇 Lapin &amp; NAC</button>
+      </div>
+
+      <div class="pricing-grid pricing-grid-2" id="pricing-grid"></div>
+
+      <div id="loyalty-preview"></div>
+    </div>
+  </section>
+
+  <!-- ENGAGEMENTS -->
+  <section class="section section-alt">
+    <div class="container commitments">
+      <div class="commitment">
+        <div class="commitment-icon">🌱</div>
+        <h3>100% vegan</h3>
+        <p>Aucun ingrédient d'origine animale dans nos formules.</p>
+      </div>
+      <div class="commitment">
+        <div class="commitment-icon">🚫</div>
+        <h3>Cruelty-free</h3>
+        <p>Aucun produit testé sur les animaux, à aucune étape.</p>
+      </div>
+      <div class="commitment">
+        <div class="commitment-icon">🍃</div>
+        <h3>Ingrédients naturels</h3>
+        <p>Des formules douces, sans sulfates ni parabènes.</p>
+      </div>
+      <div class="commitment">
+        <div class="commitment-icon">📦</div>
+        <h3>Emballages responsables</h3>
+        <p>Cartons recyclés et recyclables, encres écologiques.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVIS -->
+  <section class="section" id="avis">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Ils nous font confiance</p>
+        <h2>Ce qu'en pensent nos clients</h2>
+      </div>
+
+      <div class="testimonials-grid">
+        <article class="testimonial-card">
+          <p class="stars">★★★★★</p>
+          <p>« Mon chien a la peau sensible, la box MIC BOX est la première formule qui ne l'irrite pas. »</p>
+          <p class="testimonial-author">— Camille, et Rio (Labrador)</p>
+        </article>
+        <article class="testimonial-card">
+          <p class="stars">★★★★★</p>
+          <p>« Enfin des produits vegan pour mon cheval ! Le baume sabots est devenu indispensable. »</p>
+          <p class="testimonial-author">— Julien, et Étoile (jument)</p>
+        </article>
+        <article class="testimonial-card">
+          <p class="stars">★★★★★</p>
+          <p>« Ma lapine a la peau très fragile, j'avais peur de mal faire. La box est top, tout est pensé pour elle. »</p>
+          <p class="testimonial-author">— Sarah, et Nova (lapine)</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-alt" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Questions fréquentes</p>
+        <h2>FAQ</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item">
+          <summary>Les produits sont-ils vraiment 100% vegan ?</summary>
+          <p>Oui. Toutes les formules MIC BOX sont conçues sans aucun ingrédient d'origine animale et ne sont jamais testées sur les animaux.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Comment la box est-elle personnalisée ?</summary>
+          <p>Lors de la création du profil de votre animal, vous renseignez son espèce, sa race, son âge et ses éventuelles sensibilités. Ces informations déterminent la sélection de produits envoyée à chaque box.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Puis-je annuler mon abonnement à tout moment ?</summary>
+          <p>Oui. Toutes nos formules — Découverte comme Abonnement trimestriel — sont sans engagement. Vous pouvez suspendre ou résilier à tout moment depuis votre espace client, sans frais ni justification.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Livrez-vous partout en France ?</summary>
+          <p>Oui, nous livrons dans toute la France métropolitaine. La livraison est offerte dès la formule Découverte.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Que faire si un produit ne convient pas à mon animal ?</summary>
+          <p>Notre équipe est joignable pour ajuster le profil et remplacer le produit concerné dans la box suivante.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER / CONTACT -->
+  <section class="section newsletter" id="newsletter">
+    <div class="container newsletter-inner">
+      <h2>Prêt à chouchouter votre animal ?</h2>
+      <p>Laissez-nous votre e-mail pour être averti du lancement et recevoir 15% de réduction sur votre première box.</p>
+      <form class="newsletter-form" id="newsletter-form" novalidate>
+        <label class="sr-only" for="email">Adresse e-mail</label>
+        <input type="email" id="email" name="email" placeholder="votre@email.com" required autocomplete="email">
+        <button type="submit" class="btn btn-primary">S'inscrire</button>
+      </form>
+      <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <span class="logo-mark" aria-hidden="true">🐾</span>
+        <span class="logo-text">MIC BOX</span>
+      </a>
+      <p>Cosmétiques vegan personnalisés pour chiens, chats, chevaux, lapins et NAC.</p>
     </div>
 
-    <!-- Products Section -->
-    <section id="products" class="products-section">
-        <div class="container">
-            <h2>Nos Produits Sélectionnés 📦</h2>
-            <p class="subtitle">Les meilleures marques vegan pour chaque espèce</p>
-            
-            <div class="products-filter">
-                <button class="filter-btn active" onclick="filterProducts('all')">Tous</button>
-                <button class="filter-btn" onclick="filterProducts('dog')">Chien</button>
-                <button class="filter-btn" onclick="filterProducts('cat')">Chat</button>
-                <button class="filter-btn" onclick="filterProducts('horse')">Cheval</button>
-                <button class="filter-btn" onclick="filterProducts('rabbit')">Lapin</button>
-            </div>
+    <div class="footer-col">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#" data-open-account>Mon compte</a></li>
+        <li><a href="#quiz">Quiz</a></li>
+        <li><a href="#comment-ca-marche">Comment ça marche</a></li>
+        <li><a href="#animaux">Nos animaux</a></li>
+        <li><a href="#produits">Produits</a></li>
+        <li><a href="#box">Nos box</a></li>
+        <li><a href="#avis">Avis</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </div>
 
-            <div class="products-grid" id="productsGrid">
-                <!-- Les produits seront générés par JavaScript -->
-            </div>
-        </div>
-    </section>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:contact@mic-box.fr">contact@mic-box.fr</a></li>
+        <li>Du lundi au vendredi, 9h–18h</li>
+      </ul>
+    </div>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <h2>À Propos de MIC BOX</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Notre Mission</h3>
-                    <p>MIC BOX est née d'une conviction simple : vos animaux de compagnie méritent les mêmes standards de qualité et de naturalité que vous vous offrez.</p>
-                    <p>Nous sélectionnons les meilleurs cosmétiques vegan et écologiques disponibles sur le marché, validés par nos experts vétérinaires, et les regroupons dans des box personnalisées adaptées à chaque espèce.</p>
-                    
-                    <h3>Nos 4 Lignes</h3>
-                    <ul>
-                        <li><strong>🐕 Chiens</strong> - Soins de pelage, shampoings doux</li>
-                        <li><strong>🐈 Chats</strong> - Produits sans stress, hypoallergéniques</li>
-                        <li><strong>🐴 Chevaux</strong> - Soins dermite estivale, performance</li>
-                        <li><strong>🐰 Lapins/NAC</strong> - Soins spécialisés pour petits animaux</li>
-                    </ul>
-                </div>
-                <div class="about-image">
-                    <div class="info-box">
-                        <h4>✓ Comité Vétérinaire</h4>
-                        <p>Tous nos produits sont validés par des experts en santé animale</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="footer-col">
+      <h4>Suivez-nous</h4>
+      <ul class="social-list">
+        <li><a href="#" aria-label="MIC BOX sur Instagram">Instagram</a></li>
+        <li><a href="#" aria-label="MIC BOX sur Facebook">Facebook</a></li>
+        <li><a href="#" aria-label="MIC BOX sur TikTok">TikTok</a></li>
+      </ul>
+    </div>
+  </div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2>Nous Contacter</h2>
-            <div class="contact-info">
-                <p>📧 contact@micbox.fr</p>
-                <p>📱 +33 6 XX XX XX XX</p>
-                <p>🌐 www.micbox.fr</p>
-            </div>
-            <form class="contact-form">
-                <input type="text" placeholder="Votre nom" required>
-                <input type="email" placeholder="Votre email" required>
-                <textarea placeholder="Votre message" rows="5" required></textarea>
-                <button type="submit" class="submit-btn">Envoyer</button>
-            </form>
-        </div>
-    </section>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>© <span id="year"></span> MIC BOX. Tous droits réservés.</p>
+    </div>
+  </div>
+</footer>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 MIC BOX - Box de Cosmétiques Vegan pour Animaux | Tous droits réservés</p>
-            <p>Vegan 🌱 | Écologique ♻️ | Validé Vétérinaire ✓</p>
-        </div>
-    </footer>
+<!-- Account Modal -->
+<div class="account-modal" id="account-modal" aria-hidden="true">
+  <div class="account-modal-backdrop" data-account-close></div>
+  <div class="account-modal-panel" role="dialog" aria-modal="true" aria-labelledby="account-modal-title">
+    <button type="button" class="account-modal-close" data-account-close aria-label="Fermer mon compte">&times;</button>
+    <div id="account-modal-body"></div>
+  </div>
+</div>
 
-    <script src="quiz.js"></script>
-    <script src="products.js"></script>
+<!-- Quiz Modal -->
+<div class="quiz-modal" id="quiz-modal" aria-hidden="true">
+  <div class="quiz-modal-backdrop" data-quiz-close></div>
+  <div class="quiz-modal-panel" role="dialog" aria-modal="true" aria-labelledby="quiz-modal-title">
+    <button type="button" class="quiz-modal-close" data-quiz-close aria-label="Fermer le quiz">&times;</button>
+    <div id="quiz-modal-body"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/script.js"></script>
+<script src="js/products.js"></script>
+<script src="js/pricing.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/account.js"></script>
 </body>
 </html>
